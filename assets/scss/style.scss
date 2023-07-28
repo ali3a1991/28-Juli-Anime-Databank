@@ -1,0 +1,138 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: lightgray;
+}
+
+header{
+    background-color: gray;
+    color: white;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div{
+        input[type=text]{
+            all: unset;
+            line-height: 30px;
+            background-color: lightgray;
+            border-radius: 15px 0px 0px 15px;
+            padding: 3px 5px;
+            color: rgb(43, 43, 43);
+        }
+
+        input[type=button]{
+            all: unset;
+            color: rgb(43, 43, 43);
+            line-height: 30px;
+            background-color: rgb(255, 187, 187);
+            border-radius: 0px 15px 15px 0px;
+            padding: 3px 5px;
+            cursor: pointer;
+        }
+    }
+
+    ul{
+        display: flex;
+        column-gap: 40px;
+        margin-right: 20px;
+
+        li{
+            list-style-type: none;
+        }
+    }
+}
+
+.title{
+    padding: 30px;
+    text-align: center;
+}
+
+.top-animes{
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 20px;
+    position: relative;
+}
+
+.anime-box-parent{
+    width: 1200px;
+    height: 430px;
+    overflow: hidden;
+}
+
+.anime-box{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 86px;
+    height: 430px;
+    width: 10000px;
+    transition: all 0.5s ease-in-out;
+}
+
+.anime-card{
+    position: relative;
+    width: 235px;
+    height: 430px;
+    padding-top: 10px;
+    overflow: hidden;
+    text-align: center;
+
+    img{
+        margin-block: 10px;
+        width: 100%;
+        height: 80%;
+    }
+}
+
+#toRight, #toLeft{
+    font-size: 70px;
+    
+}
+
+.direction{
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+        transform: scale(1.2);
+    }
+
+    &:active{
+        transform: scale(1);
+    }
+}
+
+
+.anime-hover{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 15px;
+    font-size: 20px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.589);
+    color: white;
+    width: 100%;
+    height: 78%;
+    top: -350px;
+    transition: top 0.1s ease-in-out;
+
+    span{
+        color: orange;
+    }
+}
+
+.anime-card:hover .anime-hover{
+    top: 42px;
+}
