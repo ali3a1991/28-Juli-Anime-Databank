@@ -25,7 +25,7 @@ function createAnimeCard (anime) {
     parentDiv.innerHTML += `
     <h3>Rank: ${anime.rank}</h3>
     <img src='${anime.images.jpg.image_url}'>
-    <p>${anime.title}</p>`
+    <h3>${anime.title}</h3>`
     animeBox.appendChild(parentDiv)
     
     const childDiv = document.createElement('div');

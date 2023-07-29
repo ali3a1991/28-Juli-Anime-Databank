@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("../font/Lato/Lato-Regular.ttf");
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,17 +9,24 @@
 }
 
 body {
-  background-color: lightgray;
+  background-color: #DFCAC9;
   max-width: 100vw;
+  font-family: "Lato-Regular";
 }
 
 header {
-  background-color: gray;
+  background-color: #CB9D90;
   color: white;
   padding: 10px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+header div {
+  transition: all 0.5s ease-in-out;
+}
+header div:hover {
+  transform: scale(1.2);
 }
 header div input[type=text] {
   all: unset;
@@ -25,9 +36,11 @@ header div input[type=text] {
   padding: 3px 5px;
   color: rgb(43, 43, 43);
 }
-header div input[type=button] {
+header div button {
   all: unset;
+  width: 30px;
   color: rgb(43, 43, 43);
+  text-align: center;
   line-height: 30px;
   background-color: rgb(255, 187, 187);
   border-radius: 0px 15px 15px 0px;
@@ -42,11 +55,18 @@ header ul {
 }
 header ul li {
   list-style-type: none;
+  transition: all 0.2s ease-in-out;
+}
+header ul li:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  color: rgb(68, 68, 68);
 }
 
 .title {
-  padding: 30px;
+  padding: 50px 0px 30px;
   text-align: center;
+  letter-spacing: 10px;
 }
 
 .top-animes {
@@ -63,7 +83,7 @@ header ul li {
 
 .anime-box-parent {
   width: 1200px;
-  height: 430px;
+  height: 470px;
   overflow: hidden;
 }
 
@@ -73,7 +93,7 @@ header ul li {
   flex-wrap: wrap;
   -moz-column-gap: 86px;
        column-gap: 86px;
-  height: 430px;
+  height: 470px;
   width: 10000px;
   transition: all 0.5s ease-in-out;
 }
@@ -81,7 +101,7 @@ header ul li {
 .anime-card {
   position: relative;
   width: 235px;
-  height: 430px;
+  height: 470px;
   padding-top: 10px;
   overflow: hidden;
   text-align: center;
@@ -90,6 +110,7 @@ header ul li {
   margin-block: 10px;
   width: 100%;
   height: 80%;
+  border-radius: 10px;
 }
 
 #toRight, #toLeft {
@@ -117,9 +138,10 @@ header ul li {
   background-color: rgba(0, 0, 0, 0.589);
   color: white;
   width: 100%;
-  height: 78%;
-  top: -350px;
-  transition: top 0.1s ease-in-out;
+  height: 78.5%;
+  top: -400px;
+  transition: top 0.2s ease-in-out;
+  border-radius: 10px;
 }
 .anime-hover span {
   color: orange;
