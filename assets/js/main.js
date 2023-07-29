@@ -2,11 +2,50 @@
 
 const topAnimeApi = 'https://api.jikan.moe/v4/top/anime';
 const animeBox = document.querySelector('.anime-box');
+const mainAnime = document.querySelector('.animes');
+
+
+fetch('https://api.jikan.moe/v4/anime')
+    .then(response => response.json())
+    .then(animes => {
+        animes.data.forEach(anime => {
+            createAnimeCard2 (anime);
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+
+function createAnimeCard2 (anime) {
+    let star = '';
+    
+    for (let goldStar = 0  ; goldStar < anime.score / 2; goldStar++) {
+        star += '<i class="fa-solid fa-star"></i>'
+    }
+    for (let goldStar = 0  ; goldStar < Math.floor(5 - (anime.score / 2)) ; goldStar++) {
+        star += '<i class="fa-regular fa-star"></i>'
+    }
+
+    const parentDiv = document.createElement('div');
+    parentDiv.innerHTML += `
+    <h3>Rank: ${anime.rank}</h3>
+    <img src='${anime.images.jpg.image_url}'>
+    <h3>${anime.title}</h3>
+    <p>imdb: ${anime.score} / 10 <br><span>${star}</span></p>
+    <p>Studio: ${anime.studios[0].name}</p>
+    <p>Release year: ${anime.year}</p>`
+    mainAnime.appendChild(parentDiv)
+}
+
+
+
+
+
 
 fetch(topAnimeApi)
     .then(response => response.json())
     .then(animes => {
-        console.log(animes);
         animes.data.forEach(anime => {
             createAnimeCard (anime);
         });
@@ -15,6 +54,8 @@ fetch(topAnimeApi)
         console.log(error);
     });
     
+
+
 function createAnimeCard (anime) {
     let star = '';
     for (let goldStar = 0  ; goldStar < 5; goldStar++) {
