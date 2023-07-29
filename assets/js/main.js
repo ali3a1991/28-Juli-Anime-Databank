@@ -2,22 +2,38 @@
 
 const topAnimeApi = 'https://api.jikan.moe/v4/top/anime';
 const animeBox = document.querySelector('.anime-box');
-const mainAnime = document.querySelector('.animes');
-
+const mainAnime = document.querySelector('#animes');
+const searchBtn = document.getElementById('button');
+const searchInput = document.getElementById('search-input');
+const searchResult = document.getElementById('search-result');
+const searchBox = document.querySelector('.search-box');
+const closeResult = document.getElementById('close-result');
+const error = document.getElementById('error');
+const toLeftBtn = document.getElementById('toLeft');
+const toRightBtn = document.getElementById('toRight');
+let right = 0;
 
 fetch('https://api.jikan.moe/v4/anime')
     .then(response => response.json())
     .then(animes => {
-        animes.data.forEach(anime => {
-            createAnimeCard2 (anime);
-        });
+        animes.data.forEach(anime => createAnimeCard2(anime, mainAnime));
+        searchBtn.addEventListener('click', () => searchAnime(animes));
     })
     .catch(error => {
         console.log(error);
     });
 
+fetch(topAnimeApi)
+    .then(response => response.json())
+    .then(animes => {
+        searchBtn.addEventListener('click', () => searchAnime(animes));
+        animes.data.forEach(anime => createAnimeCard (anime));
+    })
+    .catch(error => {
+        console.log(error);
+    });
 
-function createAnimeCard2 (anime) {
+function createAnimeCard2(anime, mainAnime){
     let star = '';
     
     for (let goldStar = 0  ; goldStar < anime.score / 2; goldStar++) {
@@ -26,7 +42,7 @@ function createAnimeCard2 (anime) {
     for (let goldStar = 0  ; goldStar < Math.floor(5 - (anime.score / 2)) ; goldStar++) {
         star += '<i class="fa-regular fa-star"></i>'
     }
-
+    
     const parentDiv = document.createElement('div');
     parentDiv.innerHTML += `
     <h3>Rank: ${anime.rank}</h3>
@@ -35,62 +51,68 @@ function createAnimeCard2 (anime) {
     <p>imdb: ${anime.score} / 10 <br><span>${star}</span></p>
     <p>Studio: ${anime.studios[0].name}</p>
     <p>Release year: ${anime.year}</p>`
-    mainAnime.appendChild(parentDiv)
+    mainAnime.appendChild(parentDiv);
 }
 
+function searchAnime(params) {
+    const searchInputValue = searchInput.value.toLowerCase();
+    error.style.top = '8px';
+    searchResult.innerHTML = '';
 
+    if (searchInputValue == '' || searchInputValue.length < 3){
+        error.style.top = '40px';
+        searchBox.style.height = '0px';
+        return
+    }
 
-
-
-
-fetch(topAnimeApi)
-    .then(response => response.json())
-    .then(animes => {
-        animes.data.forEach(anime => {
-            createAnimeCard (anime);
-        });
-    })
-    .catch(error => {
-        console.log(error);
+    params.data.forEach(anime => {
+        if (anime.title.toLowerCase().indexOf(searchInputValue) != -1) {
+            createAnimeCard2 (anime, searchResult);
+        }
     });
     
-
-
-function createAnimeCard (anime) {
-    let star = '';
-    for (let goldStar = 0  ; goldStar < 5; goldStar++) {
-        star += '<i class="fa-solid fa-star"></i>'
+    if(searchResult.innerHTML == ''){
+        searchBox.style.height = '150px';
+        searchResult.innerHTML = '<h2>no result</h2>';
+    }else{
+        searchBox.style.height = '600px';
     }
+
+    closeResult.addEventListener('click', () => searchBox.style.height = '0px')
+}
+
+function createAnimeCard(anime) {
+    let star = '';
+
+    for (let goldStar = 0  ; goldStar < 5; goldStar++) {
+        star += '<i class="fa-solid fa-star"></i>';
+    }
+
     const parentDiv = document.createElement('div');
-    parentDiv.className = 'anime-card'
+    parentDiv.className = 'anime-card';
     parentDiv.innerHTML += `
     <h3>Rank: ${anime.rank}</h3>
     <img src='${anime.images.jpg.image_url}'>
     <h3>${anime.title}</h3>`
-    animeBox.appendChild(parentDiv)
+    animeBox.appendChild(parentDiv);
     
     const childDiv = document.createElement('div');
-    childDiv.className = 'anime-hover'
+    childDiv.className = 'anime-hover';
     childDiv.innerHTML += `
     <p>imdb: ${anime.score} / 10 <br><span>${star}</span></p>
     <p>Studio: ${anime.studios[0].name}</p>
     <p>Release year: ${anime.year}</p>`
-    parentDiv.appendChild(childDiv)
+    parentDiv.appendChild(childDiv);
 }
 
-const toLeftBtn = document.getElementById('toLeft');
-const toRightBtn = document.getElementById('toRight');
-
-let right = 0;
 toRightBtn.addEventListener('click', () => {
     if (right < 0 || right > 6420) {
         return
     }else{
         right += 321;
     }
-    animeBox.style.right = `${right}px`
+    animeBox.style.right = `${right}px`;
 })
-
 
 toLeftBtn.addEventListener('click', () => {
     if (right <= 0 || right > 6741) {
@@ -98,5 +120,6 @@ toLeftBtn.addEventListener('click', () => {
     }else{
         right -= 321;
     }
-    animeBox.style.right = `${right}px`
+    animeBox.style.right = `${right}px`;
 })
+

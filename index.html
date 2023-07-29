@@ -11,8 +11,9 @@
     <header>
         <h1>Anime.de</h1>
         <div>
-            <input type="text" placeholder="Search Anime">
-            <button><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
+            <p id="error">* Enter at least 3 characters</p>
+            <input type="text" placeholder="Search Anime" id="search-input">
+            <button id="button"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
         </div>
         <nav>
             <ul>
@@ -23,6 +24,10 @@
             </ul>
         </nav>
     </header>
+    <section class="search-box">
+        <h4 class="title">Search result <span id="close-result"><i class="fa-solid fa-xmark" style="color: #db0000;"></i></span></h4>
+        <article  class="animes" id="search-result"></article>
+    </section>
     <h1 class="title">Top 25 Anime</h1>
     <section  class="top-animes">
         <div class="direction"><i id="toLeft" class="fa-sharp fa-solid fa-play fa-rotate-180 fa-lg" style="color: #2b2b2b;"></i></div>
@@ -32,7 +37,7 @@
         <div class="direction"><i id="toRight" class="fa-sharp fa-solid fa-play fa-lg" style="color: #2b2b2b;"></i></div>
     </section>
     <h1 class="title">Other Anime</h1>
-    <section class="animes"></section>
+    <section class="animes" id="animes"></section>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>

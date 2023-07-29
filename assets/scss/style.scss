@@ -22,13 +22,11 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 90px;
 
     div{
         transition: all 0.5s ease-in-out;
-
-        &:hover{
-            transform: scale(1.2);
-        }
+        position: relative;
 
         input[type=text]{
             all: unset;
@@ -37,6 +35,8 @@ header{
             border-radius: 15px 0px 0px 15px;
             padding: 3px 5px;
             color: rgb(43, 43, 43);
+            position: relative;
+            z-index: 2;
         }
 
         button{
@@ -49,6 +49,16 @@ header{
             border-radius: 0px 15px 15px 0px;
             padding: 3px 5px;
             cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        p{
+            color: rgb(161, 1, 1);
+            position: absolute;
+            top: 8px;
+            z-index: 1;
+            transition: all 0.2s ease-in-out;
         }
     }
 
@@ -67,6 +77,30 @@ header{
             color: rgb(68, 68, 68);
         }
         }
+    }
+}
+
+.search-box{
+    background-color: #ccadac;
+    height: 0px;
+    overflow-y: scroll;
+    transition: all 0.5s ease-in-out;
+
+    h4{
+        padding: 10px;
+        letter-spacing: 1px;
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+
+        span{
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+
+    article{
+        justify-content: start;
     }
 }
 

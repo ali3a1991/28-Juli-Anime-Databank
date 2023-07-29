@@ -21,12 +21,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 90px;
 }
 header div {
   transition: all 0.5s ease-in-out;
-}
-header div:hover {
-  transform: scale(1.2);
+  position: relative;
 }
 header div input[type=text] {
   all: unset;
@@ -35,6 +34,8 @@ header div input[type=text] {
   border-radius: 15px 0px 0px 15px;
   padding: 3px 5px;
   color: rgb(43, 43, 43);
+  position: relative;
+  z-index: 2;
 }
 header div button {
   all: unset;
@@ -46,6 +47,15 @@ header div button {
   border-radius: 0px 15px 15px 0px;
   padding: 3px 5px;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+header div p {
+  color: rgb(161, 1, 1);
+  position: absolute;
+  top: 8px;
+  z-index: 1;
+  transition: all 0.2s ease-in-out;
 }
 header ul {
   display: flex;
@@ -61,6 +71,27 @@ header ul li:hover {
   transform: scale(1.2);
   cursor: pointer;
   color: rgb(68, 68, 68);
+}
+
+.search-box {
+  background-color: #ccadac;
+  height: 0px;
+  overflow-y: scroll;
+  transition: all 0.5s ease-in-out;
+}
+.search-box h4 {
+  padding: 10px;
+  letter-spacing: 1px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+.search-box h4 span {
+  font-size: 20px;
+  cursor: pointer;
+}
+.search-box article {
+  justify-content: start;
 }
 
 .title {
