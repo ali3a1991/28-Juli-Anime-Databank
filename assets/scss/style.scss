@@ -6,6 +6,7 @@
 
 body{
     background-color: lightgray;
+    max-width: 100vw;
 }
 
 header{
@@ -135,4 +136,26 @@ header{
 
 .anime-card:hover .anime-hover{
     top: 42px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    header {
+        flex-direction: column;
+        row-gap: 20px;
+
+        ul{
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 950px) {
+    header {
+        justify-content: space-between;
+        
+        ul{
+            display: none;
+        }
+    }
 }
