@@ -13,11 +13,47 @@ const toLeftBtn = document.getElementById('toLeft');
 const toRightBtn = document.getElementById('toRight');
 let right = 0;
 
+searchBtn.addEventListener('click', () => {
+    searchResult.innerHTML = '';
+    const searchInputValue = searchInput.value.toLowerCase();
+    error.style.top = '8px';
+
+    fetch('https://api.jikan.moe/v4/anime')
+        .then(response => response.json())
+        .then(animes => {
+            searchAnime(animes, searchInputValue);
+
+            fetch(topAnimeApi)
+                .then(response => response.json())
+                .then(animes => {
+                    searchAnime(animes, searchInputValue);
+
+                    if (searchInputValue == '' || searchInputValue.length < 3){
+                        error.style.top = '40px';
+                        searchBox.style.height = '0px';
+                        return
+                    }
+
+                    if(searchResult.innerHTML == ''){
+                        searchBox.style.height = '150px';
+                        searchResult.innerHTML = '<h2>no result</h2>';
+                    }else{
+                        searchBox.style.height = '600px';
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            })
+        .catch(error => {
+            console.log(error);
+        });
+});
+
 fetch('https://api.jikan.moe/v4/anime')
     .then(response => response.json())
     .then(animes => {
         animes.data.forEach(anime => createAnimeCard2(anime, mainAnime));
-        searchBtn.addEventListener('click', () => searchAnime(animes));
     })
     .catch(error => {
         console.log(error);
@@ -26,7 +62,6 @@ fetch('https://api.jikan.moe/v4/anime')
 fetch(topAnimeApi)
     .then(response => response.json())
     .then(animes => {
-        searchBtn.addEventListener('click', () => searchAnime(animes));
         animes.data.forEach(anime => createAnimeCard (anime));
     })
     .catch(error => {
@@ -54,29 +89,12 @@ function createAnimeCard2(anime, mainAnime){
     mainAnime.appendChild(parentDiv);
 }
 
-function searchAnime(params) {
-    const searchInputValue = searchInput.value.toLowerCase();
-    error.style.top = '8px';
-    searchResult.innerHTML = '';
-
-    if (searchInputValue == '' || searchInputValue.length < 3){
-        error.style.top = '40px';
-        searchBox.style.height = '0px';
-        return
-    }
-
+function searchAnime(params, searchInputValue) {
     params.data.forEach(anime => {
         if (anime.title.toLowerCase().indexOf(searchInputValue) != -1) {
             createAnimeCard2 (anime, searchResult);
         }
     });
-    
-    if(searchResult.innerHTML == ''){
-        searchBox.style.height = '150px';
-        searchResult.innerHTML = '<h2>no result</h2>';
-    }else{
-        searchBox.style.height = '600px';
-    }
 
     closeResult.addEventListener('click', () => searchBox.style.height = '0px')
 }
